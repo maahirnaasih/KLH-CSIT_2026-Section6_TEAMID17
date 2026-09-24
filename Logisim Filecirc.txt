@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project source="3.8.0" version="1.0">
+  <lib desc="#Wiring" name="0"/>
+  <lib desc="#Gates" name="1"/>
+  <lib desc="#Plexers" name="2"/>
+  <lib desc="#Arithmetic" name="3"/>
+  <lib desc="#Memory" name="4"/>
+  <lib desc="#I/O" name="5"/>
+  <lib desc="#TTL" name="6"/>
+  <lib desc="#TCL" name="7"/>
+  <lib desc="#Base" name="8"/>
+  <main name="main"/>
+  <options>
+    <a name="gateUndefined" val="ignore"/>
+    <a name="simlimit" val="1000"/>
+    <a name="simrand" val="0"/>
+  </options>
+  <mappings/>
+  <toolbar/>
+  <circuit name="main">
+    <a name="appearance" val="logisim_evolution"/>
+    <a name="circuit" val="main"/>
+    <a name="simulationFrequency" val="1.0"/>
+
+    <!-- Inputs -->
+    <comp lib="0" loc="(70,90)" name="Clock">
+      <a name="label" val="CLK"/>
+    </comp>
+    <comp lib="0" loc="(70,170)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="label" val="UP"/>
+      <a name="output" val="false"/>
+      <a name="width" val="1"/>
+    </comp>
+    <comp lib="0" loc="(70,230)" name="Constant">
+      <a name="value" val="0x1"/>
+    </comp>
+    <comp lib="1" loc="(220,330)" name="NOT Gate"/>
+    <comp lib="1" loc="(350,270)" name="XOR Gate">
+      <a name="size" val="30"/>
+    </comp>
+    <comp lib="1" loc="(350,350)" name="NOT Gate"/>
+    <comp lib="1" loc="(460,310)" name="OR Gate">
+      <a name="size" val="30"/>
+    </comp>
+
+    <!-- Direction-conditioned bit toggle functions -->
+    <comp lib="1" loc="(480,450)" name="XOR Gate">
+      <a name="size" val="30"/>
+    </comp>
+    <comp lib="1" loc="(600,450)" name="AND Gate">
+      <a name="size" val="30"/>
+    </comp>
+    <comp lib="1" loc="(480,570)" name="XOR Gate">
+      <a name="size" val="30"/>
+    </comp>
+    <comp lib="1" loc="(600,570)" name="AND Gate">
+      <a name="size" val="30"/>
+    </comp>
+
+    <!-- State: T flip-flops share one clock (synchronous). -->
+    <comp lib="4" loc="(800,120)" name="T Flip-Flop">
+      <a name="appearance" val="logisim_evolution"/>
+      <a name="label" val="FF0 / Q0"/>
+      <a name="trigger" val="rising"/>
+    </comp>
+    <comp lib="4" loc="(980,120)" name="T Flip-Flop">
+      <a name="appearance" val="logisim_evolution"/>
+      <a name="label" val="FF1 / Q1"/>
+      <a name="trigger" val="rising"/>
+    </comp>
+    <comp lib="4" loc="(1160,120)" name="T Flip-Flop">
+      <a name="appearance" val="logisim_evolution"/>
+      <a name="label" val="FF2 / Q2"/>
+      <a name="trigger" val="rising"/>
+    </comp>
+    <comp lib="4" loc="(1340,120)" name="T Flip-Flop">
+      <a name="appearance" val="logisim_evolution"/>
+      <a name="label" val="FF3 / Q3"/>
+      <a name="trigger" val="rising"/>
+    </comp>
+
+    <!-- Visible output pins -->
+    <comp lib="0" loc="(900,140)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="Q0"/>
+      <a name="output" val="true"/>
+    </comp>
+    <comp lib="0" loc="(1080,140)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="Q1"/>
+      <a name="output" val="true"/>
+    </comp>
+    <comp lib="0" loc="(1260,140)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="Q2"/>
+      <a name="output" val="true"/>
+    </comp>
+    <comp lib="0" loc="(1440,140)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="Q3"/>
+      <a name="output" val="true"/>
+    </comp>
+
+    <!-- Hex display and 4-bit bus splitter -->
+    <comp lib="0" loc="(1510,350)" name="Splitter">
+      <a name="fanout" val="4"/>
+      <a name="incoming" val="4"/>
+      <a name="appear" val="center"/>
+      <a name="bit0" val="0"/>
+      <a name="bit1" val="1"/>
+      <a name="bit2" val="2"/>
+      <a name="bit3" val="3"/>
+    </comp>
+    <comp lib="5" loc="(1630,350)" name="Hex Digit Display">
+      <a name="label" val="COUNT"/>
+    </comp>
+
+    <!-- Clock distribution -->
+    <wire from="(70,90)" to="(760,90)"/>
+    <wire from="(760,90)" to="(1300,90)"/>
+    <wire from="(800,170)" to="(800,170)"/>
+    <wire from="(760,90)" to="(760,170)"/>
+    <wire from="(760,170)" to="(790,170)"/>
+    <wire from="(940,170)" to="(970,170)"/>
+    <wire from="(940,90)" to="(940,170)"/>
+    <wire from="(940,90)" to="(1120,90)"/>
+    <wire from="(1120,90)" to="(1120,170)"/>
+    <wire from="(1120,170)" to="(1150,170)"/>
+    <wire from="(1300,90)" to="(1300,170)"/>
+    <wire from="(1300,170)" to="(1330,170)"/>
+
+    <!-- Q0 feedback and output -->
+    <wire from="(850,130)" to="(900,130)"/>
+    <wire from="(900,130)" to="(900,140)"/>
+    <wire from="(850,130)" to="(850,270)"/>
+    <wire from="(850,270)" to="(320,270)"/>
+    <wire from="(70,170)" to="(320,170)"/>
+    <wire from="(320,170)" to="(320,250)"/>
+    <wire from="(320,250)" to="(320,270)"/>
+    <wire from="(220,330)" to="(280,330)"/>
+    <wire from="(280,330)" to="(280,370)"/>
+    <wire from="(280,370)" to="(430,370)"/>
+    <wire from="(430,310)" to="(430,370)"/>
+    <wire from="(350,270)" to="(430,270)"/>
+    <wire from="(430,270)" to="(430,290)"/>
+    <wire from="(430,290)" to="(430,310)"/>
+    <wire from="(430,310)" to="(790,310)"/>
+    <wire from="(790,170)" to="(790,310)"/>
+
+    <!-- Q1 feedback, UP XNOR Q1 toggle condition and T1 -->
+    <wire from="(1030,130)" to="(1080,130)"/>
+    <wire from="(1080,130)" to="(1080,140)"/>
+    <wire from="(1030,130)" to="(1030,450)"/>
+    <wire from="(70,170)" to="(450,170)"/>
+    <wire from="(450,170)" to="(450,430)"/>
+    <wire from="(450,430)" to="(450,450)"/>
+    <wire from="(1030,450)" to="(450,450)"/>
+    <wire from="(480,450)" to="(570,450)"/>
+    <wire from="(570,450)" to="(570,490)"/>
+    <wire from="(570,490)" to="(790,490)"/>
+    <wire from="(790,170)" to="(790,490)"/>
+
+    <!-- Q2 feedback and T2 = T1 AND (UP XNOR Q2) -->
+    <wire from="(1210,130)" to="(1260,130)"/>
+    <wire from="(1260,130)" to="(1260,140)"/>
+    <wire from="(1210,130)" to="(1210,570)"/>
+    <wire from="(70,170)" to="(450,170)"/>
+    <wire from="(450,170)" to="(450,550)"/>
+    <wire from="(450,550)" to="(450,570)"/>
+    <wire from="(1210,570)" to="(450,570)"/>
+    <wire from="(480,570)" to="(570,570)"/>
+    <wire from="(570,570)" to="(570,610)"/>
+    <wire from="(570,610)" to="(970,610)"/>
+    <wire from="(970,170)" to="(970,610)"/>
+
+    <!-- Q3 output and display input bus -->
+    <wire from="(1390,130)" to="(1440,130)"/>
+    <wire from="(1440,130)" to="(1440,140)"/>
+    <wire from="(900,130)" to="(900,350)"/>
+    <wire from="(900,350)" to="(1490,350)"/>
+    <wire from="(1080,130)" to="(1080,360)"/>
+    <wire from="(1080,360)" to="(1490,360)"/>
+    <wire from="(1260,130)" to="(1260,370)"/>
+    <wire from="(1260,370)" to="(1490,370)"/>
+    <wire from="(1440,130)" to="(1440,380)"/>
+    <wire from="(1440,380)" to="(1490,380)"/>
+    <wire from="(1530,350)" to="(1590,350)"/>
+
+    <!-- Logic definition annotations -->
+    <comp lib="8" loc="(80,700)" name="Text">
+      <a name="text" val="4-bit synchronous UP/DOWN counter. UP=1 counts up; UP=0 counts down. T0=1; T1=UP XNOR Q0; T2=T1 AND (UP XNOR Q1); T3=T2 AND (UP XNOR Q2). All flip-flops use the shared rising-edge clock."/>
+    </comp>
+  </circuit>
+</project>
